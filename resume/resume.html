@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Viewer</title>
+  <style>
+    /* Import Custom Font */
+    @font-face {
+      font-family: "Billy";
+      src: url("../billy.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* Apply Font to Everything */
+    body {
+      text-align: center;
+      background-color: #eee3d2; /* Matches header */
+      font-family: "Billy", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header Section */
+    .header-container {
+      display: flex;
+      justify-content: center; /* Center everything */
+      align-items: center;
+      background-color: #eee3d2; /* Same as body background */
+      padding: 15px 30px;
+      position: relative; /* Allows absolute positioning */
+    }
+
+    .logo {
+      height: 200px;
+      position: absolute;
+      left: 30px; /* Align logo to the left */
+    }
+
+    .placeholder-container {
+      display: flex;
+      justify-content: center;
+      flex-grow: 1; /* Centers it */
+    }
+
+    .placeholder-image {
+      height: 150px; /* Increased size */
+      cursor: pointer;
+    }
+
+    .social-links {
+      position: absolute;
+      right: 30px; /* Align links to the right */
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-links a {
+      text-decoration: none;
+      color: black;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .social-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Resume Container */
+    .resume-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      margin-top: 50px; /* Adds space below the header */
+    }
+
+    .resume-image {
+      height: 60%;
+      cursor: pointer; /* Clickable to open the resume */
+      /* transition: transform 0.3s ease-in-out; */
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      border-radius: 1px;
+    }
+
+    /* .resume-image:hover {
+      transform: scale(1.05);
+    } */
+
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <div class="header-container">
+    <img src="../icons/icon5.png" alt="Logo" class="logo"> <!-- Left Logo -->
+
+    <div class="placeholder-container">
+      <a href="index.html">
+        <img src="../OldBanner.png" alt="Placeholder Image" class="placeholder-image"> <!-- Centered Placeholder Image -->
+      </a>
+    </div>
+
+    <div class="social-links"> <!-- Right Social Links -->
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+      <a href="resume.pdf" target="_blank">Resume</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- Resume Section -->
+  <div class="resume-container">
+    <a href="AriaResume.jpg" target="_blank">
+      <img src="AriaResume.jpg" alt="Resume Preview" class="resume-image">
+    </a>
+  </div>
+
+</body>
+</html>

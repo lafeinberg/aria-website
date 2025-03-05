@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spinner Wheel</title>
+  <style>
+    /* Import Custom Font */
+    @font-face {
+      font-family: "Billy";
+      src: url("billy.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* Apply Font to Everything */
+    body {
+      text-align: center;
+      background-color: #eee3d2; /* Matches header */
+      font-family: "Billy", Arial, sans-serif; /* Use Billy as primary font */
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header Section */
+    .header-container {
+      display: flex;
+      justify-content: center; /* Center everything */
+      align-items: center;
+      background-color: #eee3d2; /* Same as body background */
+      padding: 15px 30px;
+      position: relative; /* Allows absolute positioning */
+    }
+
+    .logo {
+      height: 200px;
+      position: absolute;
+      left: 30px; /* Align logo to the left */
+    }
+
+    .placeholder-container {
+      display: flex;
+      justify-content: center;
+      flex-grow: 1; /* Centers it */
+    }
+
+    .placeholder-image {
+      height: 150px; /* Increased size */
+      cursor: pointer;
+    }
+
+    .social-links {
+      position: absolute;
+      right: 30px; /* Align links to the right */
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-links a {
+      text-decoration: none;
+      color: black;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .social-links a:hover {
+      text-decoration: underline;
+    }
+
+    .spinner-container {
+      position: relative;
+      display: inline-block;
+      margin-top: 10px; /* Adds space below the header */
+    }
+
+    canvas {
+      border: none; /* Remove the square border */
+      display: block;
+      margin: 20px auto;
+      background-color: transparent; /* Make background clear */
+    }
+
+    .buttons-container {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      cursor: pointer;
+      display: none; /* Buttons hidden initially */
+      background-color: white;
+      border: 2px solid black;
+      color: black;
+      font-weight: bold;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      font-family: "Billy", Arial, sans-serif; /* Ensure buttons also use Billy */
+    }
+
+    button:hover {
+      background-color: black;
+      color: white;
+    }
+
+    .center-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+     /* width: 140px; Increased size */
+      height: 300px;
+      cursor: pointer; /* Clickable to start the spin */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <div class="header-container">
+    <img src="icons/icon5.png" alt="Logo" class="logo"> <!-- Left Logo -->
+
+    <div class="placeholder-container">
+      <a href="index.html">
+        <img src="OldBanner.png" alt="Placeholder Image" class="placeholder-image"> <!-- Centered Placeholder Image -->
+      </a>
+    </div>
+
+    <div class="social-links"> <!-- Right Social Links -->
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+      <a href="resume.pdf" target="_blank">Resume</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- Spinner Section -->
+  <div class="spinner-container">
+    <canvas id="wheelCanvas" width="400" height="400"></canvas>
+    <img src="clipart_person_pointing_up.png" alt="Person Pointing Up" class="center-image"> 
+  </div>
+
+  <div class="buttons-container">
+    <button id="stopButton">Stop</button>
+    <button id="goToPage">→</button> <!-- Navigation Arrow -->
+  </div>
+
+  <script src="spinner.js"></script>
+
+</body>
+</html>

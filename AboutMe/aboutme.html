@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me</title>
+  <style>
+    /* Import Custom Font */
+    @font-face {
+      font-family: "Billy";
+      src: url("../billy.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* Global Styles */
+    body {
+      text-align: center;
+      background-color: #eee3d2; /* Matches header */
+      font-family: "Billy", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header Section */
+    .header-container {
+      display: flex;
+      justify-content: center; /* Center everything */
+      align-items: center;
+      background-color: #eee3d2;
+      padding: 15px 30px;
+      position: relative;
+    }
+
+    .logo {
+      height: 200px;
+      position: absolute;
+      left: 30px;
+    }
+
+    .placeholder-container {
+      display: flex;
+      justify-content: center;
+      flex-grow: 1;
+    }
+
+    .placeholder-image {
+      height: 150px;
+      cursor: pointer;
+    }
+
+    .social-links {
+      position: absolute;
+      right: 30px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-links a {
+      text-decoration: none;
+      color: black;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .social-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* About Me Section */
+    .aboutme-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+      padding: 0 20px;
+    }
+
+    /* About Me Header */
+    .aboutme-header {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    /* About Me Image */
+    .aboutme-image {
+      width: 60%;
+      max-width: 800px;
+      height: auto;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* About Me Text */
+    .aboutme-text {
+      max-width: 800px;
+      font-size: 20px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .aboutme-image {
+        width: 80%;
+        max-width: 600px;
+      }
+      
+      .aboutme-text {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <div class="header-container">
+    <img src="../icons/icon5.png" alt="Logo" class="logo"> <!-- Left Logo -->
+
+    <div class="placeholder-container">
+      <a href="index.html">
+        <img src="../OldBanner.png" alt="Placeholder Image" class="placeholder-image"> <!-- Centered Placeholder Image -->
+      </a>
+    </div>
+
+    <div class="social-links">
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+      <a href="resume.pdf" target="_blank">Resume</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- About Me Section -->
+  <div class="aboutme-container">
+    <div class="aboutme-header">About Me</div>
+    <img src="AboutMe.jpeg" alt="About Me Image" class="aboutme-image">
+    <p class="aboutme-text">
+      A multi-cultural artist, story teller, and designer with a passion for transforming ideas into inspiration. On a mission to make my mark within the media industry by continuously challenging myself creatively and expressing my authentic self.
+Proficient in Adobe Photoshop, after effects, and premiere pro.
+youtube content creator.
+Podcast Host.
+    </p>
+  </div>
+
+</body>
+</html>
