@@ -7,17 +7,37 @@
   <style>
     /* Import Custom Font */
     @font-face {
-      font-family: "Billy";
-      src: url("../billy.ttf") format("truetype");
+    font-family: "LORE Regular";
+    src: url("../fonts/LORE-Regular.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+    @font-face {
+      font-family: "LORE Bold";
+      src: url("../fonts/LORE-Bold.otf") format("opentype");
+      font-weight: bold;
+      font-style: normal;
+    }
+    
+    @font-face {
+      font-family: "LORE Alternates Regular";
+      src: url("../fonts/LORE-Alternates-Regular.otf") format("opentype");
       font-weight: normal;
       font-style: normal;
     }
-
+    
+    @font-face {
+      font-family: "LORE Alternates Bold";
+      src: url("../fonts/LORE-Alternates-Bold.otf") format("opentype");
+      font-weight: bold;
+      font-style: normal;
+    }
     /* Global Styles */
     body {
       text-align: center;
       background-color: #eee3d2;
-      font-family: "Billy", Arial, sans-serif;
+      font-family: "LORE Regular", Arial, sans-serif;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
@@ -34,10 +54,13 @@
     }
 
     .logo {
-      height: 200px;
+      height: 300px;
       position: absolute;
-      left: 30px;
+      left: 30px; /* Align logo to the left */
+      object-fit: contain; /* Ensures the GIF scales correctly */
+      padding-top: 30px;
     }
+
 
     .placeholder-container {
       display: flex;
@@ -50,43 +73,50 @@
       cursor: pointer;
     }
 
+/* Social Links */
     .social-links {
       position: absolute;
-      right: 30px;
+      right: 30px; /* Align links to the right */
       display: flex;
       gap: 15px;
     }
 
     .social-links a {
-      text-decoration: none;
-      color: black;
-      font-size: 20px;
-      font-weight: bold;
+      display: inline-block;
+      width: 50px; /* Set a size for the icons */
+      height: 50px;
     }
 
-    .social-links a:hover {
-      text-decoration: underline;
+    .social-links img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s ease-in-out;
     }
 
-    /* Timeline Container */
+    .social-links img:hover {
+      transform: scale(1.2);
+    }
+
     .timeline-container {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      overflow-x: auto;
-      padding: 100px 0;
-      position: relative;
-      width: 100vw;
-      white-space: nowrap;
-    }
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: auto;
+  padding: 10px -20px; /* Reduce vertical padding */
+  position: relative;
+  width: 100vw;
+  white-space: nowrap;
+}
+
 
     /* Main Timeline Line */
     .timeline {
       display: flex;
       align-items: center;
       position: relative;
-      gap: 80px;
-      padding: 50px 50px;
+      gap: 5px;
+      padding: 10px 10px;
     }
 
     .timeline::before {
@@ -233,7 +263,7 @@
 
     /* Scrollable Styling */
     .timeline-container::-webkit-scrollbar {
-      height: 8px;
+      height: 0px;
     }
 
     .timeline-container::-webkit-scrollbar-track {
@@ -324,26 +354,124 @@
     }
 
 
+    .title-container a {
+      text-decoration: none; /* ✅ Removes underline */
+      color: inherit; /* ✅ Keeps the text color unchanged */
+    }
+
+    .title-text {
+  font-family: "LORE Bold", Arial, sans-serif;
+  font-size: 70px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: black;
+  margin: 0; /* Removes default margin */
+  padding-top: 10px; /* Reduce padding at the top */
+}
+
+
+            /* 🖋️ Fixed Signature Overlay */
+  .signature-overlay {
+      position: fixed;
+      bottom: 0px;  /* Distance from bottom */
+      left: 10px;   /* Distance from right */
+      width: 150px;  /* Adjust size */
+      opacity: 0.8;  /* Slight transparency */
+      z-index: 999;  /* Stays above everything */
+      pointer-events: none; /* Prevents interference with clicks */
+    }
+
+    .page-header {
+  max-width: 800px;
+  margin: -20px auto -10px; /* Reduce top and bottom margin */
+  text-align: center;
+  background-color: #eee3d2;
+}
+
+
+.page-header h2 {
+  font-size: 40px; /* Adjust size if needed */
+  margin-bottom: 0px; /* Reduce space below the title */
+}
+
+
+    .page-header p {
+      font-family: "LORE Regular", Arial, sans-serif;
+      font-size: 18px;
+      color: #444; /* ✅ Slightly softer text color */
+      line-height: 1.2;
+    }
+
+    /* Bottom-right container */
+.bottom-right-container {
+  position: fixed;
+  bottom: 25px;  /* Adjust position from the bottom */
+  right: 12px;   /* Adjust position from the right */
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items */
+  z-index: 1000; /* Ensure it stays above other elements */
+}
+
+/* Base image (Scroll indicator) */
+.scroll-indicator {
+  width: 200px; /* Adjust size */
+  height: auto; /* Maintain aspect ratio */
+  opacity: 0.9; /* Slight transparency */
+}
+
+/* Arrow GIF */
+.arrow-gif {
+  position: absolute; /* Overlay on top of the scroll image */
+  width: 100px; /* Adjust size */
+  height: auto; /* Maintain aspect ratio */
+  bottom: 5px; /* Position slightly above */
+  animation: bounce 1.5s infinite; /* Optional bounce animation */
+}
+
+/* Optional: Bounce animation for the arrow */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+
   </style>
 </head>
 <body>
 
   <!-- Header Section -->
   <div class="header-container">
-    <img src="../icons/icon5.png" alt="Logo" class="logo"> <!-- Left Logo -->
+    <a href="../index.html"></a>
+      <img src="../gifs/logo.gif" alt="Logo" class="logo"> <!-- Left Logo -->
+    </a>
 
-    <div class="placeholder-container">
+    <div class="title-container">
       <a href="../index.html">
-        <img src="thumbnails/OldBanner.png" alt="Placeholder Image" class="placeholder-image"> <!-- Centered Placeholder Image -->
+        <h1 class="title-text">Aria Sophia Feinberg</h1>
       </a>
     </div>
 
+
     <div class="social-links">
-      <a href="https://instagram.com" target="_blank">Instagram</a>
-      <a href="resume.pdf" target="_blank">Resume</a>
-      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/aria-sophia/" target="_blank">
+        <img class="gif-icon" src="../gifs/linkedin.gif" alt="LinkedIn">
+      </a>
+      <a href="https://www.instagram.com/ariaonair_/" target="_blank">
+        <img class="gif-icon" src="../gifs/instagram.gif" alt="Instagram">
+      </a>
+      <a href="../resume/resume.html" target="_blank" class="resume-gif">
+        <img class="gif-icon" src="../gifs/resume.gif" alt="Resume">
+      </a>
     </div>
   </div>
+
+    <!-- Videos Section Header -->
+  <div class="page-header">
+    <h2>Videos</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget odio ac eros varius viverra. Praesent suscipit tincidunt felis, vel fermentum arcu dictum sed.</p>
+  </div>
+
 
   <!-- Horizontal Timeline Section -->
   <div class="timeline-container">
@@ -473,6 +601,12 @@
       </div>
 
       <div class="timeline-end">End</div>
+
+      <div class="bottom-right-container">
+        <img src="../icons/scroll_in_time_to_travel.png" alt="Scroll Indicator" class="scroll-indicator">
+        <img src="../gifs/arrow.gif" alt="Arrow" class="arrow-gif">
+      </div>
+      
       
     </div>
   </div>
@@ -484,6 +618,12 @@
       <div class="close-btn" onclick="closePopup()">X</div>
     </div>
   </div>
+
+  <img src="../icons/signature.png" alt="Signature" class="signature-overlay">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+
 
   <script>
     // Get all video links

@@ -7,17 +7,44 @@
   <style>
     /* Import Custom Font */
     @font-face {
-      font-family: "Billy";
-      src: url("billy.ttf") format("truetype");
+    font-family: "LORE Regular";
+    src: url("fonts/LORE-Regular.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+    @font-face {
+      font-family: "LORE Bold";
+      src: url("fonts/LORE-Bold.otf") format("opentype");
+      font-weight: bold;
+      font-style: normal;
+    }
+    
+    @font-face {
+      font-family: "LORE Alternates Regular";
+      src: url("fonts/LORE-Alternates-Regular.otf") format("opentype");
       font-weight: normal;
       font-style: normal;
     }
+    
+    @font-face {
+      font-family: "LORE Alternates Bold";
+      src: url("fonts/LORE-Alternates-Bold.otf") format("opentype");
+      font-weight: bold;
+      font-style: normal;
+    }
+    
+    /* Apply the font */
+    body {
+      font-family: "LORE Regular", Arial, sans-serif;
+    }
+  
 
     /* Apply Font to Everything */
     body {
       text-align: center;
       background-color: #eee3d2; /* Matches header */
-      font-family: "Billy", Arial, sans-serif; /* Use Billy as primary font */
+      font-family: "LORE Regular", Arial, sans-serif;
       margin: 0;
       padding: 0;
     }
@@ -32,23 +59,18 @@
       position: relative; /* Allows absolute positioning */
     }
 
+    /* Bigger Logo without affecting layout */
     .logo {
-      height: 200px;
+      height: 580px; /* Make it much larger */
       position: absolute;
-      left: 30px; /* Align logo to the left */
+      top: -115px;  /* Adjusted to not push content */
+      left: 50px; /* Keep it in the left corner */
+      z-index: 10; /* Keep it on top */
+      pointer-events: none; /* Ensures it doesn’t interfere with clicks */
     }
 
-    .placeholder-container {
-      display: flex;
-      justify-content: center;
-      flex-grow: 1; /* Centers it */
-    }
 
-    .placeholder-image {
-      height: 150px; /* Increased size */
-      cursor: pointer;
-    }
-
+    /* Social Links */
     .social-links {
       position: absolute;
       right: 30px; /* Align links to the right */
@@ -57,27 +79,46 @@
     }
 
     .social-links a {
-      text-decoration: none;
-      color: black;
-      font-size: 18px;
-      font-weight: bold;
+      display: inline-block;
+      width: 50px; /* Set a size for the icons */
+      height: 50px;
     }
 
-    .social-links a:hover {
-      text-decoration: underline;
+    .social-links img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    /* 🖋️ Fixed Signature Overlay (Lowered) */
+    .signature-overlay {
+      position: fixed;
+      bottom: 5px;   /* Lowered signature */
+      right: 20px;
+      width: 150px;
+      opacity: 0.8;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+
+    .social-links img:hover {
+      transform: scale(1.2);
     }
 
     .spinner-container {
       position: relative;
       display: inline-block;
-      margin-top: 10px; /* Adds space below the header */
+      overflow: visible; /* ✅ Prevents clipping */
     }
 
+
     canvas {
-      border: none; /* Remove the square border */
+      border: none;
       display: block;
-      margin: 20px auto;
-      background-color: transparent; /* Make background clear */
+      margin: 0 auto;
+      background-color: transparent;
     }
 
     .buttons-container {
@@ -86,6 +127,19 @@
       justify-content: center;
       gap: 15px;
     }
+    
+    h1 {
+      font-family: "LORE Bold", Arial, sans-serif;
+    }
+
+    p {
+      font-family: "LORE Regular", Arial, sans-serif;
+    }
+
+    .special-text {
+      font-family: "LORE Alternates Bold", sans-serif;
+    }
+
 
     button {
       padding: 12px 24px;
@@ -98,7 +152,7 @@
       font-weight: bold;
       border-radius: 10px;
       transition: all 0.3s ease;
-      font-family: "Billy", Arial, sans-serif; /* Ensure buttons also use Billy */
+      /* font-family: "Billy", Arial, sans-serif; Ensure buttons also use Billy */
     }
 
     button:hover {
@@ -115,39 +169,111 @@
       height: 300px;
       cursor: pointer; /* Clickable to start the spin */
     }
+
+    .placeholder-container {
+      display: flex;
+      justify-content: center;
+      flex-grow: 1; /* Centers it */
+    }
+
+    .placeholder-image {
+      height: 150px; /* Increased size */
+      cursor: pointer;
+    }
+
+    .title-container a {
+      text-decoration: none; /* ✅ Removes underline */
+      color: inherit; /* ✅ Keeps the text color unchanged */
+    }
+
+
+    .title-text {
+      font-family: "LORE Bold", Arial, sans-serif;
+      font-size: 70px; /* Adjust size as needed */
+      font-weight: bold;
+      text-transform: uppercase;
+      color: black;
+      margin: 0;
+      padding-top: 30px;
+    }
+
+    .music-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.music-button {
+  width: 50px;  /* Adjust the size */
+  height: 50px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.music-button:hover {
+  transform: scale(1.2);  /* Make it slightly bigger on hover */
+}
+
+
+
   </style>
 </head>
 <body>
 
   <!-- Header Section -->
   <div class="header-container">
-    <img src="icons/icon5.png" alt="Logo" class="logo"> <!-- Left Logo -->
-
-    <div class="placeholder-container">
+    <img src="icons/home_logo.png" alt="Logo" class="logo"> <!-- Left Logo -->
+    <div class="title-container">
       <a href="index.html">
-        <img src="OldBanner.png" alt="Placeholder Image" class="placeholder-image"> <!-- Centered Placeholder Image -->
+        <h1 class="title-text">Aria Sophia Feinberg</h1>
       </a>
     </div>
 
-    <div class="social-links"> <!-- Right Social Links -->
-      <a href="https://instagram.com" target="_blank">Instagram</a>
-      <a href="resume.pdf" target="_blank">Resume</a>
-      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/aria-sophia/" target="_blank">
+        <img class="gif-icon" src="gifs/linkedin.gif" alt="LinkedIn">
+      </a>
+      <a href="https://www.instagram.com/ariaonair_/" target="_blank">
+        <img class="gif-icon" src="gifs/instagram.gif" alt="Instagram">
+      </a>
+      <a href="resume/resume.html" target="_blank" class="resume-gif">
+        <img class="gif-icon" src="gifs/resume.gif" alt="Resume">
+      </a>
     </div>
   </div>
 
-  <!-- Spinner Section -->
-  <div class="spinner-container">
-    <canvas id="wheelCanvas" width="400" height="400"></canvas>
-    <img src="clipart_person_pointing_up.png" alt="Person Pointing Up" class="center-image"> 
-  </div>
+<!-- Spinner Section -->
+<div class="spinner-container">
+  <canvas id="wheelCanvas" width="600" height="600"></canvas>
+  <img src="gifs/spin_me.gif" alt="Spin" class="center-image">
+</div>
 
-  <div class="buttons-container">
-    <button id="stopButton">Stop</button>
-    <button id="goToPage">→</button> <!-- Navigation Arrow -->
-  </div>
+<div class="buttons-container">
+  <button id="goToPage">→ Go to Page</button> 
+</div>
 
-  <script src="spinner.js"></script>
+    <!-- Fixed Signature in Bottom Right -->
+    <img src="icons/signature.png" alt="Signature" class="signature-overlay">
+
+<!-- 🎵 Background Music -->
+<audio id="bgMusic" autoplay loop>
+  <source src="home-music.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- 🎵 Custom Music Controls (Using Images) -->
+<div class="music-controls">
+  <img id="playMusic" src="icons/play.png" alt="Play Music" class="music-button">
+  <img id="pauseMusic" src="icons/pause.png" alt="Pause Music" class="music-button">
+</div>
+
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<script src="spinner.js"></script>
+
 
 </body>
 </html>

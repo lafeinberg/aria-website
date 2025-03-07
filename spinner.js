@@ -1,7 +1,39 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const bgMusic = document.getElementById("bgMusic");
+  const playButton = document.getElementById("playMusic");
+  const pauseButton = document.getElementById("pauseMusic");
+
+  // ✅ Try to autoplay music when page loads
+  function enableMusic() {
+    bgMusic.play().catch(() => {
+      console.log("Autoplay blocked, waiting for user action...");
+    });
+
+    // Remove event listener after first interaction
+    document.removeEventListener("click", enableMusic);
+  }
+
+  // ✅ Try autoplay, but wait for user click if blocked
+  bgMusic.play().catch(() => {
+    document.addEventListener("click", enableMusic);
+  });
+
+  // 🎵 Play Button Click
+  playButton.addEventListener("click", () => {
+    bgMusic.play();
+  });
+
+  // ⏸️ Pause Button Click
+  pauseButton.addEventListener("click", () => {
+    bgMusic.pause();
+  });
+});
+
+
+
 const canvas = document.getElementById("wheelCanvas");
 const ctx = canvas.getContext("2d");
 const centerImage = document.querySelector(".center-image");
-const stopButton = document.getElementById("stopButton");
 const goToPageButton = document.getElementById("goToPage");
 
 const sections = [
@@ -9,12 +41,14 @@ const sections = [
   { label: "Videos", url: "portfolio_page/video-portfolio.html", icon: "gallery.png" },
   { label: "Services", url: "../services.html", icon: "services.png" },
   { label: "Resume", url: "resume/resume.html", icon: "contact.png" },
-  { label: "Portfolio", url: "../index.html", icon: "portfolio.png" }
+  { label: "Portfolio", url: "../index.html", icon: "portfolio.png" },
+  { label: "Freelance", url: "../freelance.html", icon: "freelance.png" },
+  { label: "Food", url: "../food.html", icon: "food.png" },
+  { label: "Contact", url: "../contact.html", icon: "contact.png" }
 ];
 
-// 🛠️ Increase Canvas Size (Bigger Wheel)
-canvas.width = 600; // Updated from 400
-canvas.height = 600; // Updated from 400
+// 🎨 Colors: Alternating Pale Yellow and Orange
+const colors = ["rgb(253, 215, 126)", "rgb(255, 168, 39)"];
 
 const numSections = sections.length;
 const arc = (2 * Math.PI) / numSections;
@@ -24,11 +58,11 @@ let spinning = false;
 let selectedIndex = null;
 let iconPositions = [];
 
-// 🎨 Draw the Wheel with Larger Radius
+// 🎨 Draw the Wheel
 function drawWheel() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.save();
-  ctx.translate(300, 300); // Move center of wheel to the middle of the new canvas
+  ctx.translate(300, 300);
   ctx.rotate(rotation);
   ctx.translate(-300, -300);
 
@@ -39,32 +73,33 @@ function drawWheel() {
     const endAngle = startAngle + arc;
 
     ctx.beginPath();
-    ctx.moveTo(300, 300); // Updated center
-    ctx.arc(300, 300, 290, startAngle, endAngle); // Increased radius
+    ctx.moveTo(300, 300);
+    ctx.arc(300, 300, 290, startAngle, endAngle);
     ctx.closePath();
 
-    ctx.fillStyle = "rgba(0, 0, 0, 0)"; // Transparent section
+    // ✅ Alternate Colors
+    ctx.fillStyle = colors[i % 2];
     ctx.fill();
 
-    ctx.strokeStyle = "rgba(198, 198, 198, 0.2)"; // Faint lines
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 2;
     ctx.stroke();
 
-    // 🏷️ Add Text (Now Black)
+    // 🏷️ Add Text
     ctx.fillStyle = "black";
-    ctx.font = "bold 20px Arial"; // Increased font size
+    ctx.font = "bold 18px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-    const textX = 300 + Math.cos(startAngle + arc / 2) * 200; // Move text out
-    const textY = 300 + Math.sin(startAngle + arc / 2) * 200;
+    const textX = 300 + Math.cos(startAngle + arc / 2) * 180;
+    const textY = 300 + Math.sin(startAngle + arc / 2) * 180;
     ctx.fillText(sections[i].label, textX, textY - 20);
 
-    // 🖼️ Load PNG Icons (Always Facing Up)
+    // 🖼️ Load PNG Icons (Click Support)
     const img = new Image();
     img.src = `icons/${sections[i].icon}`;
     img.onload = function () {
-      ctx.drawImage(img, textX - 20, textY, 40, 40); // Increased icon size
+      ctx.drawImage(img, textX - 20, textY, 40, 40);
     };
 
     // Store icon positions for click detection
@@ -74,15 +109,13 @@ function drawWheel() {
   ctx.restore();
 }
 
-
-// 🌀 Start the Spinner (Triggered by Clicking the Center Icon)
+// 🌀 Start the Spinner (Stops on Its Own)
 function startSpin() {
   if (spinning) return;
 
   spinning = true;
-  spinSpeed = Math.random() * 0.3 + 0.4; // Start faster
-  stopButton.style.display = "block"; // Show stop button
-  goToPageButton.style.display = "none"; // Hide navigation button while spinning
+  spinSpeed = Math.random() * 0.5 + 0.7;
+  goToPageButton.style.display = "none";
 
   function animateSpin() {
     if (!spinning) return;
@@ -90,35 +123,32 @@ function startSpin() {
     rotation += spinSpeed;
     drawWheel();
 
-    requestAnimationFrame(animateSpin);
+    spinSpeed *= 0.98;
+
+    if (spinSpeed < 0.01) {
+      stopSpin();
+    } else {
+      requestAnimationFrame(animateSpin);
+    }
   }
 
   requestAnimationFrame(animateSpin);
 }
 
-// 🛑 Stop the Spinner (Stops Faster Now)
+// 🛑 Stop the Spinner Automatically
 function stopSpin() {
-  if (!spinning) return;
+  spinning = false;
+  spinSpeed = 0;
 
-  let slowDown = setInterval(() => {
-    spinSpeed *= 0.80; // Reduce speed even faster
+  // 🎯 Select the Section at the TOP (90°)
+  let finalAngle = (rotation % (2 * Math.PI));
+  let indexOffset = Math.floor(((2 * Math.PI - finalAngle) / arc) + 0.5) % numSections;
+  selectedIndex = indexOffset;
 
-    if (spinSpeed < 0.01) {
-      spinSpeed = 0;
-      spinning = false;
-      clearInterval(slowDown);
+  console.log("Selected Section:", sections[selectedIndex].label);
 
-      // 🎯 Ensure the section at the TOP (90°) is selected
-      let finalAngle = (rotation % (2 * Math.PI));
-      let indexOffset = Math.floor(((2 * Math.PI - finalAngle) / arc) + 0.5) % numSections;
-      selectedIndex = indexOffset;
-
-      console.log("Selected Section:", sections[selectedIndex].label);
-
-      // 🎉 Show "Go to Page" button
-      goToPageButton.style.display = "block";
-    }
-  }, 25); // Faster stop
+  // 🎉 Show "Go to Page" button
+  goToPageButton.style.display = "block";
 }
 
 // 🖱️ Detect Clicks on Icons
@@ -139,7 +169,7 @@ canvas.addEventListener("click", (event) => {
   }
 });
 
-// 🌍 Navigate to Selected Page (Only when clicking the button)
+// 🌍 Navigate to Selected Page
 goToPageButton.addEventListener("click", () => {
   if (selectedIndex !== null) {
     window.location.href = sections[selectedIndex].url;
@@ -148,7 +178,8 @@ goToPageButton.addEventListener("click", () => {
 
 // 🖱️ Click Center Icon to Start Spin
 centerImage.addEventListener("click", startSpin);
-stopButton.addEventListener("click", stopSpin);
 
 // 🔃 Draw Initial Wheel
 drawWheel();
+
+
